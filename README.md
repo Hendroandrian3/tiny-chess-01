@@ -16,3 +16,10 @@ move makes it deterministic: no clock, no unseeded randomness.
 It talks to the trial environment at `MAKEFUN_ENV_URL` (`POST /game` to
 serve the game in play, `POST /move` to play a move in UCI) and plays the
 8-game gauntlet.
+
+Local practice results (kit env + scorer, fixed 100,000 nodes/move):
+trial-0 Elo 1253 (2W 2D 4L), trial-1 Elo 1326 (2W 3D 3L),
+trial-2 Elo 1173 (2W 1D 5L); 24-game mean Elo ~1251, 6W 6D 12L.
+Above the 1154 practice floor; below the 1325 sunfish baseline.
+Perft 20/20, deterministic across re-runs, ~1.1-1.8s/move,
+trial wall time ~18 min (limit 30 min).
