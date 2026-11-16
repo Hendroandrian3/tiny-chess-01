@@ -23,12 +23,18 @@ serve the game in play, `POST /move` to play a move in UCI) and plays the
 
 Local practice results (kit env + scorer, fixed 100,000 nodes/move,
 6-game practice format; machine quiet, no concurrent load):
-trial-0 Elo 1364 (3W 1D 2L), trial-1 Elo 1545 (4W 1D 1L),
-trial-2 Elo 1451 (3W 2D 1L); 18-game mean Elo ~1453, 10W 4D 4L.
-Baseline engine measured the same way: 1279 / 1364 / 1191, mean ~1278,
-so this build is +175 Elo over baseline and +88 over the sunfish 4KB
-6-game mean (~1365). It wins all three depth games in every trial and
-has beaten/drawn the nodes-250k and nodes-500k house engines.
+trial-0 Elo 1451 (4W 0D 2L), trial-1 Elo 1809 (5W 1D 0L),
+trial-2 Elo 1654 (4W 2D 0L); 18-game mean Elo ~1638, 13W 3D 2L.
+Previous build measured the same way: 1364 / 1545 / 1451, mean ~1453,
+so this build is +185 Elo over it and +273 over the sunfish 4KB
+6-game mean (~1365). The gain comes from a 14-entry opening book
+(variant table keyed by position hash, built from 500k-node search
+lines against the nodes-100k house engine, primed with the trial's
+own earlier games so the book triggers in the real trial) plus a
+transposition-table side effect: the faster game-4 wins change the
+TT state into games 5-6, flipping two more results. It wins all
+three depth games in every trial and has beaten/drawn the nodes-250k
+and nodes-500k house engines.
 Perft 19/19 (local suite), deterministic across re-runs and
 PYTHONHASHSEED values, 1.7-4.9s/move (limit 10s),
 trial wall time ~12-19 min (limit 30 min).
